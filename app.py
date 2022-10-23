@@ -3,7 +3,6 @@ from report_generator import report
 from test_file import test_func
 app = Flask(__name__)
 
-
 @app.route('/')
 def hello_world():
     return "Hello, World!"
