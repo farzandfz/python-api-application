@@ -3,6 +3,11 @@ from report_generator import report
 from test_file import test_func
 app = Flask(__name__)
 
+
+@app.route('/')
+def testapi():
+    return "Hello, World!"
+
 @app.route('/api')
 def api():
     NAME = request.args.get('name')
@@ -17,19 +22,7 @@ def api():
 
     # Use this to pass a Error/ Success message
     result = report(NAME, AGE, SEX)
-    
-    return jsonify(result)
-
-@app.route('/testapi')
-def testapi():
-    NAME = request.args.get('name')
-    AGE = int(request.args.get('age'))
-    SEX = request.args.get('sex')
-
-
-    result = test_func(NAME, AGE, SEX)
-    
     return jsonify(result)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False, host='0.0.0.0')
