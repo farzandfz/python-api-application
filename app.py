@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def testapi():
+def hello_world():
     return "Hello, World!"
 
 @app.route('/api')
