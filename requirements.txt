@@ -1,0 +1,4 @@
+numpy==1.23.2
+pandas==1.4.3
+Flask==1.1.1
+fpdf==1.7.2
