@@ -4,4 +4,3 @@ Flask==2.1.0
 fpdf==1.7.2
 gunicorn==20.1.0
 boto3==1.24.96
-django-storages==1.13.1
