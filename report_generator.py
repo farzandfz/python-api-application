@@ -1,10 +1,12 @@
 import pandas as pd
 import numpy as np
-
+import boto3
 from fpdf import FPDF
+from io import BytesIO
+import time
 
 # function to generate the report in PDF format
-def coverPage(pdf):
+def coverPage(pdf, WIDTH, HEIGHT, NAME, AGE, SEX, CUST_HEIGHT, WEIGHT, LIFESTYLE, FOOD, GOAL, CUST_HEIGHT_FT, BMR, BMI, IDEAL_WEIGHT, CLASS, CALORIES, PROTEIN, CARBS, FATS, FIBER):
     pdf.image("Data/index.jpg", x= 0, y = 0, w= WIDTH, h = HEIGHT)
     
     pdf.ln(30)
@@ -191,8 +193,36 @@ FOOD = 'Vegetarian'
 GOAL = 'Maintain Weight'
 GOAL2 = 250
 
-# def report(NAME, AGE, SEX, CUST_HEIGHT, WEIGHT, LIFESTYLE, FOOD, GOAL, GOAL2):
-def report(NAME, AGE, SEX):
+AWS_ACCESS_KEY_ID = "AKIAXHEQA2NYJE45LYFF"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "healtheirway-files"
+
+# S3 storage system
+def store_file(FILENAME, FILESTR):
+    s3 = boto3.client('s3', 
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+
+    return s3.upload_file(Bucket=AWS_STORAGE_BUCKET_NAME,
+        Filename=FILENAME,
+        Key='files/'+FILENAME)
+    
+# final report generator
+def create_analytics_report(NAME, AGE, SEX, CUST_HEIGHT, WEIGHT, LIFESTYLE, FOOD, GOAL, CUST_HEIGHT_FT, BMR, BMI, IDEAL_WEIGHT, CLASS, CALORIES, PROTEIN, CARBS, FATS, FIBER):
+    HEIGHT = 297
+    WIDTH = 210
+    
+    pdf = FPDF(orientation = 'L', unit = 'mm', format=(HEIGHT, WIDTH))
+
+    pdf.add_page()
+    coverPage(pdf, WIDTH, HEIGHT, NAME, AGE, SEX, CUST_HEIGHT, WEIGHT, LIFESTYLE, FOOD, GOAL, CUST_HEIGHT_FT, BMR, BMI, IDEAL_WEIGHT, CLASS, CALORIES, PROTEIN, CARBS, FATS, FIBER)
+    
+    name = str(round(time.time())) + '_' + NAME +'.pdf'
+    FILESTR = pdf.output(name=name, dest = 'F')
+    return store_file(FILENAME=name, FILESTR=FILESTR)
+
+def report(NAME, AGE, SEX, CUST_HEIGHT, WEIGHT, LIFESTYLE, FOOD, GOAL, GOAL2):
+#def report(NAME, AGE, SEX):
 
     BMR = BMRCalculator(WEIGHT, CUST_HEIGHT, SEX, AGE)
     CUST_HEIGHT_FT = heightConverter(CUST_HEIGHT)
@@ -213,5 +243,8 @@ def report(NAME, AGE, SEX):
             "Name":NAME,
             "Message": "Success, Your customized report is ready, please proceed with payment to download it",
         }
+        create_analytics_report(NAME, AGE, SEX, CUST_HEIGHT, WEIGHT, LIFESTYLE, FOOD, GOAL, CUST_HEIGHT_FT, BMR, BMI, IDEAL_WEIGHT, CLASS, CALORIES, PROTEIN, CARBS, FATS, FIBER)
     
     return text
+
+#report(NAME, AGE, SEX, CUST_HEIGHT, WEIGHT, LIFESTYLE, FOOD, GOAL, GOAL2)
