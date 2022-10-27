@@ -11,12 +11,12 @@ def api():
     NAME = request.args.get('name')
     AGE = int(request.args.get('age'))
     SEX = request.args.get('sex')
-    # CUST_HEIGHT = int(request.args.get('CUST_HEIGHT'))
-    # WEIGHT = int(request.args.get('WEIGHT'))
-    # LIFESTYLE = request.args.get('LIFESTYLE')
-    # FOOD = request.args.get('FOOD')
-    # GOAL = request.args.get('GOAL')
-    # GOAL2 = request.args.get('GOAL2')
+    CUST_HEIGHT = int(request.args.get('CUST_HEIGHT'))
+    WEIGHT = int(request.args.get('WEIGHT'))
+    LIFESTYLE = request.args.get('LIFESTYLE')
+    FOOD = request.args.get('FOOD')
+    GOAL = request.args.get('GOAL')
+    GOAL2 = request.args.get('GOAL2')
 
     # Use this to pass a Error/ Success message
     result = report(NAME, AGE, SEX)
