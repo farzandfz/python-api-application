@@ -186,12 +186,12 @@ def MacroCalculator(MAINTENANCE_CALORIE, CALORIES):
 # NAME = 'Farzand'
 # AGE = 27
 # SEX = 'Male'
-CUST_HEIGHT = 175
-WEIGHT = 83
-LIFESTYLE = 'Moderate'
-FOOD = 'Vegetarian'
-GOAL = 'Maintain Weight'
-GOAL2 = 250
+# CUST_HEIGHT = 175
+# WEIGHT = 83
+# LIFESTYLE = 'Moderate'
+# FOOD = 'Vegetarian'
+# GOAL = 'Maintain Weight'
+# GOAL2 = 250
 
 AWS_ACCESS_KEY_ID = "AKIAXHEQA2NYJE45LYFF"
 AWS_SECRET_ACCESS_KEY = "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"
