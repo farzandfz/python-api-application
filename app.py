@@ -19,7 +19,7 @@ def api():
     GOAL2 = request.args.get('GOAL2')
 
     # Use this to pass a Error/ Success message
-    result = report(NAME, AGE, SEX)
+    result = report(NAME, AGE, SEX, CUST_HEIGHT, WEIGHT, LIFESTYLE, FOOD, GOAL, GOAL2)
     return jsonify(result)
 
 if __name__ == "__main__":
